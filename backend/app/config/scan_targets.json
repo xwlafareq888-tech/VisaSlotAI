@@ -1,0 +1,16 @@
+{
+  "targets": [
+    {
+      "provider": "idata",
+      "country": "Germany",
+      "location": "Istanbul",
+      "url": "https://nationalvisas.idata.com.tr/"
+    },
+    {
+      "provider": "vfs_global",
+      "country": "Poland",
+      "location": "Ankara",
+      "url": "https://visa.vfsglobal.com/tur/tr/pol/"
+    }
+  ]
+}

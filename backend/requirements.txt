@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+redis
+celery
+playwright
+beautifulsoup4
+psycopg2-binary
