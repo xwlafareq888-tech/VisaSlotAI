@@ -8,3 +8,7 @@ playwright
 beautifulsoup4
 psycopg2-binary
 requests==2.31.0
+pytz
+SQLAlchemy
+playwright-stealth
+pg8000
