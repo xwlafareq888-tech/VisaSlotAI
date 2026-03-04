@@ -1,0 +1,64 @@
+services:
+  - type: web
+    name: visaslot-api
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    repo: https://github.com/CodeByPinar/VisaSlotAI
+    branch: main
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: visaslot-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: visaslot-redis
+          property: connectionString
+    buildCommand: "pip install -e ."
+    startCommand: "visa-api"
+
+  - type: worker
+    name: visaslot-worker
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    repo: https://github.com/CodeByPinar/VisaSlotAI
+    branch: main
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: visaslot-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: visaslot-redis
+          property: connectionString
+    buildCommand: "pip install -e ."
+    startCommand: "visa-worker"
+
+  - type: worker
+    name: visaslot-beat
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    repo: https://github.com/CodeByPinar/VisaSlotAI
+    branch: main
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: visaslot-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: visaslot-redis
+          property: connectionString
+    buildCommand: "pip install -e ."
+    startCommand: "visa-beat"
+
+databases:
+  - name: visaslot-db
+    databaseName: visaslot
+    user: visaslot
+    plan: free

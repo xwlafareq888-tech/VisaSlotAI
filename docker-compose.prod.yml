@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: visaslot_db
+    restart: always
+    environment:
+      POSTGRES_USER: visaslot
+      POSTGRES_PASSWORD: visaslotpassword
+      POSTGRES_DB: visaslot
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U visaslot -d visaslot"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: visaslot_redis
+    restart: always
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_prod_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: visaslot_api
+    restart: always
+    command: visa-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+pg8000://visaslot:visaslotpassword@db:5432/visaslot
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: visaslot_worker
+    restart: always
+    command: visa-worker
+    environment:
+      - DATABASE_URL=postgresql+pg8000://visaslot:visaslotpassword@db:5432/visaslot
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  beat:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: visaslot_beat
+    restart: always
+    command: visa-beat
+    environment:
+      - DATABASE_URL=postgresql+pg8000://visaslot:visaslotpassword@db:5432/visaslot
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_prod_data:
+  redis_prod_data:
