@@ -59,6 +59,7 @@
   - type: redis
     name: visaslot-redis
     plan: free
+    ipAllowList: []
 
 databases:
   - name: visaslot-db
