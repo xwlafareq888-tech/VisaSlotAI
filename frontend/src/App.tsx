@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Globe, Plus, Trash2, Power, Activity, Database, AlertCircle, CheckCircle2, Search, Webhook, Scan, LayoutDashboard, Zap, ShieldAlert, Cpu } from 'lucide-react';
 
-const API_BASE = process.env.NODE_ENV === "production" ? "" : "http://127.0.0.1:8000";
+const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? "http://127.0.0.1:8000" : "";
 
 interface Target {
   id: number;
